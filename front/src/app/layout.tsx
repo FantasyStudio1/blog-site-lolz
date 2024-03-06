@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang='en' className={cn(sans.variable, 'antialiased bg-[#FCFCFC]')}>
       <body className='font-sans'>
         <Header />
-        <main className='max-w-[calc(768px+16px*2)] mx-auto px-4 w-full'>{children}</main>
+        <main className='max-w-[calc(768px+16px*2)] mx-auto pb-12 px-4 w-full'>{children}</main>
       </body>
     </html>
   )

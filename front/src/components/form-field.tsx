@@ -10,9 +10,9 @@ interface FormFieldProps {
 
 export function FormField({ children, title, className }: FormFieldProps) {
   return (
-    <div className={cn('inline-block', className)}>
+    <label className={cn('inline-block', className)}>
       <div className='text-sm mb-1 text-[#6f6f6f]'>{title}</div>
       <div>{children}</div>
-    </div>
+    </label>
   )
 }

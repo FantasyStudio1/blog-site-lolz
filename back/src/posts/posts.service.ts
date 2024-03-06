@@ -8,4 +8,30 @@ export class PostsService {
   async getAllPosts() {
     return this.prisma.post.findMany();
   }
+
+  async getPostsWithPagination(page: number) {
+    const size = 5;
+
+    return this.prisma.$transaction([
+      this.prisma.post.count(),
+      this.prisma.post.findMany({
+        skip: (page - 1) * size,
+        take: size,
+        include: {
+          comments: true,
+        },
+      }),
+    ]);
+  }
+
+  async getPost(id: number) {
+    return this.prisma.post.findFirst({
+      where: {
+        id,
+      },
+      include: {
+        comments: true,
+      },
+    });
+  }
 }
