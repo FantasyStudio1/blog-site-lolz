@@ -1,7 +1,7 @@
-export default function Home() {
+export default async function Home() {
   return (
-    <main className='text-2xl font-medium text-center py-4'>
-      <h1>Hello</h1>
+    <main>
+      <h1 className='text-2xl font-medium text-center py-4'>Hello</h1>
     </main>
   )
 }
