@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html,
+  body {
+    text-rendering: optimizeLegibility;
+  }
+
+  a,
+  button,
+  input {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-neutral-50;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
