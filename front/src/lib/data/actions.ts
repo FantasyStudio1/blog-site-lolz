@@ -1,9 +1,11 @@
 'use server'
 
+import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { fetcher } from '@/lib/data/api'
+import { getSinglePost } from '@/lib/data/posts'
 import { isErrorWithStatus } from '@/lib/utils'
 
 export async function loginAction(_: any, formData: FormData) {
@@ -42,4 +44,38 @@ export async function loginAction(_: any, formData: FormData) {
   }
 
   redirect('/admin')
+}
+
+export async function createCommentAction(_: any, formData: FormData) {
+  // Добавлять комментарии могут все, поэтому не проверяем авторизацию
+
+  const postId = formData.get('postId') as string
+
+  if (!postId || isNaN(Number(postId))) throw new Error('Wrong Post Id')
+
+  const post = await getSinglePost(postId)
+
+  if (!post) throw new Error('No such post')
+
+  const body = {
+    postId: Number(postId),
+    author: formData.get('author'),
+    text: formData.get('message')
+  }
+
+  try {
+    await fetcher({
+      endpoint: '/posts/comment',
+      method: 'POST',
+      body: JSON.stringify(body)
+    })
+
+    revalidatePath(`/post/${postId}`)
+
+    return {
+      success: true
+    }
+  } catch (e) {
+    throw e
+  }
 }

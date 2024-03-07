@@ -1,5 +1,6 @@
-import { Controller, Get, Query } from "@nestjs/common";
+import { Body, Controller, Get, Post, Query } from "@nestjs/common";
 import { PostsService } from "./posts.service";
+import { CreateCommentDto } from "./posts.types";
 
 @Controller("posts")
 export class PostsController {
@@ -18,5 +19,10 @@ export class PostsController {
   @Get("/all")
   getAllPosts() {
     return this.postsService.getAllPosts();
+  }
+
+  @Post("/comment")
+  createComment(@Body() dto: CreateCommentDto) {
+    return this.postsService.addComment(dto);
   }
 }

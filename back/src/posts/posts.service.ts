@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
+import { CreateCommentDto } from "./posts.types";
 
 @Injectable()
 export class PostsService {
@@ -32,6 +33,12 @@ export class PostsService {
       include: {
         comments: true,
       },
+    });
+  }
+
+  async addComment(dto: CreateCommentDto) {
+    return this.prisma.comment.create({
+      data: dto,
     });
   }
 }

@@ -22,7 +22,7 @@ export default async function Page({ params: { id } }: PageProps) {
       <p className='mb-6'>{post.content}</p>
 
       <div>
-        <Form />
+        <Form id={id} />
         {post.comments.length ? (
           <div>
             <div className='font-medium mb-3'>Комментарии:</div>
