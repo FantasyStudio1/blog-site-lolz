@@ -1,8 +1,9 @@
-Чтобы зупустить проект, сначала клонируем его себе
+Чтобы запустить проект, сначала клонируем его себе
 
 ```bash
 git clone https://github.com/FantasyStudio1/blog-site-lolz.git
 ```
+## Бэк
 
 Потом настраиваем бэк. Переходим в папку `back` и скачиваем зависимости
 ```bash
@@ -30,6 +31,7 @@ pnpm start:dev
 ```
 После этого бэк долен запуститься на [http://localhost:4000](http://localhost:4000)
 
+## Фронт
 Теперь перейдем к фронту. Переходим в папку `front` и тоже скачиваем зависимости
 
 ```bash
@@ -46,3 +48,17 @@ NEXT_PUBLIC_API_URL=http://localhost:4000
 pnpm dev
 ```
 Заходим на [http://localhost:3000](http://localhost:3000) и видим наш сайт
+
+## Данные для входа в админку 
+
+Юзер с правами
+```bash
+email : blog@admin.com
+password: admin
+```
+
+Обычный юзер
+```bash
+email : user@test.com
+password: 123456
+```
