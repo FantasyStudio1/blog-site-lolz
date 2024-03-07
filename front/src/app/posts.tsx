@@ -14,7 +14,7 @@ import { useIsomorphicLayoutEffect } from '@/hooks/useIsomorphicLayoutEffect'
 
 const fetcher = (...args: any) => fetch(args).then(res => res.json())
 
-export function MainPosts() {
+export function Posts({ admin = false }: { admin?: boolean }) {
   const searchParams = useSearchParams()
   const pageToNumber = Number(searchParams.get('page'))
   const pageQuery = searchParams.get('page') ?? '1'
@@ -37,7 +37,11 @@ export function MainPosts() {
       ) : data ? (
         <div className='flex flex-col gap-4'>
           {data.slice(1)[0].length ? (
-            data.slice(1)[0].map((post: IPostItem) => <PostItem post={post} key={post.id} />)
+            data
+              .slice(1)[0]
+              .map((post: IPostItem) => (
+                <PostItem pageQuery={pageQuery} post={post} editable={admin} key={post.id} />
+              ))
           ) : (
             <div className='h-48 grid place-items-center'>No items</div>
           )}

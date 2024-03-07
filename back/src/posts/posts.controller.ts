@@ -1,6 +1,14 @@
-import { Body, Controller, Get, Post, Query } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Post,
+  Put,
+  Query,
+} from "@nestjs/common";
 import { PostsService } from "./posts.service";
-import { CreateCommentDto } from "./posts.types";
+import { CreateCommentDto, CreatePostDto, EditPostDto } from "./posts.types";
 
 @Controller("posts")
 export class PostsController {
@@ -24,5 +32,20 @@ export class PostsController {
   @Post("/comment")
   createComment(@Body() dto: CreateCommentDto) {
     return this.postsService.addComment(dto);
+  }
+
+  @Post("/create")
+  createPost(@Body() dto: CreatePostDto) {
+    return this.postsService.createPost(dto);
+  }
+
+  @Delete("/delete")
+  deletePost(@Query("id") id: string) {
+    return this.postsService.deletePost(+id);
+  }
+
+  @Put("/edit")
+  editPost(@Body() dto: EditPostDto) {
+    return this.postsService.editPost(dto);
   }
 }
