@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
-import { CreateCommentDto, CreatePostDto, EditPostDto } from "./posts.types";
+import { CreateCommentDto, CreatePostDto, EditPostDto } from "./posts.dto";
 
 @Injectable()
 export class PostsService {
@@ -37,6 +37,14 @@ export class PostsService {
   }
 
   async addComment(dto: CreateCommentDto) {
+    const post = await this.prisma.post.findFirst({
+      where: {
+        id: dto.postId,
+      },
+    });
+
+    if (!post) throw new BadRequestException();
+
     return this.prisma.comment.create({
       data: dto,
     });
@@ -49,6 +57,14 @@ export class PostsService {
   }
 
   async deletePost(id: number) {
+    const post = await this.prisma.post.findFirst({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!post) throw new BadRequestException();
+
     return this.prisma.post.delete({
       where: {
         id: id,
@@ -57,6 +73,14 @@ export class PostsService {
   }
 
   async editPost(dto: EditPostDto) {
+    const post = await this.prisma.post.findFirst({
+      where: {
+        id: dto.id,
+      },
+    });
+
+    if (!post) throw new BadRequestException();
+
     return this.prisma.post.update({
       where: { id: dto.id },
       data: {

@@ -1,8 +1,13 @@
 import { Posts } from '@/app/posts'
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Suspense } from 'react'
 
 import { getCurrentUser } from '@/lib/data/auth'
+
+export const metadata: Metadata = {
+  title: 'Администрация'
+}
 
 export default function Page() {
   return (

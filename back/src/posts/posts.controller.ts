@@ -6,9 +6,11 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from "@nestjs/common";
 import { PostsService } from "./posts.service";
-import { CreateCommentDto, CreatePostDto, EditPostDto } from "./posts.types";
+import { AuthGuard } from "../auth/auth.guard";
+import { CreateCommentDto, CreatePostDto, EditPostDto } from "./posts.dto";
 
 @Controller("posts")
 export class PostsController {
@@ -34,16 +36,19 @@ export class PostsController {
     return this.postsService.addComment(dto);
   }
 
+  @UseGuards(AuthGuard)
   @Post("/create")
   createPost(@Body() dto: CreatePostDto) {
     return this.postsService.createPost(dto);
   }
 
+  @UseGuards(AuthGuard)
   @Delete("/delete")
   deletePost(@Query("id") id: string) {
     return this.postsService.deletePost(+id);
   }
 
+  @UseGuards(AuthGuard)
   @Put("/edit")
   editPost(@Body() dto: EditPostDto) {
     return this.postsService.editPost(dto);

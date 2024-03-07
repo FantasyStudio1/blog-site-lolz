@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { Comment } from '@/components/comment'
@@ -5,6 +6,17 @@ import { Comment } from '@/components/comment'
 import { getSinglePost } from '@/lib/data/posts'
 
 import { Form } from './form'
+
+export async function generateMetadata({ params: { id } }: PageProps): Promise<Metadata> {
+  const post = await getSinglePost(id)
+
+  if (!post) notFound()
+
+  return {
+    title: post.title,
+    description: post.description
+  }
+}
 
 type PageProps = {
   params: { id: string }

@@ -1,3 +1,5 @@
+import { cookies } from 'next/headers'
+
 import { apiDomain } from '@/lib/constants'
 
 export async function fetcher<T>({
@@ -19,6 +21,7 @@ export async function fetcher<T>({
     method,
     headers: {
       'Content-Type': 'application/json',
+      Cookie: cookies().toString(),
       ...headers
     },
     body,

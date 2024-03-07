@@ -1,4 +1,10 @@
+import type { Metadata } from 'next'
+
 import { Form } from './form'
+
+export const metadata: Metadata = {
+  title: 'Вход'
+}
 
 export default function Page() {
   return (

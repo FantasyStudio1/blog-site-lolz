@@ -1,5 +1,10 @@
 import { Posts } from '@/app/posts'
+import type { Metadata } from 'next'
 import { Suspense } from 'react'
+
+export const metadata: Metadata = {
+  title: 'Главная'
+}
 
 export default async function Home() {
   return (

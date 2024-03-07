@@ -13,8 +13,8 @@ const sans = Open_Sans({
   variable: '--sans-font'
 })
 
+// В обычной ситуации этого недостаточно, но нам важен лишь функционал, так что мы опустим это
 export const metadata: Metadata = {
-  title: 'Blog Site',
   description: 'Find interesting posts about everything'
 }
 
