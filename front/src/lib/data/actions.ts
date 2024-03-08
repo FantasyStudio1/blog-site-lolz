@@ -141,9 +141,13 @@ export async function editPostAction(_: any, formData: FormData) {
   if (user.email === null) throw new Error('Unauthorized')
   if (!user.isAdmin) throw new Error('No permission')
 
-  // Пост можно не проверять, так как мы его получаем на странице и форма не будет видна, если поста нету
+  const postId = formData.get('postId') as string
 
-  const postId = formData.get('postId')
+  if (!postId || isNaN(Number(postId))) throw new Error('Wrong Post Id')
+
+  const post = await getSinglePost(postId)
+
+  if (!post) throw new Error('No such post')
 
   const body = {
     id: Number(postId),

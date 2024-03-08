@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 
+import { getCurrentUser } from '@/lib/data/auth'
 import { getSinglePost } from '@/lib/data/posts'
 
 import { Form } from './form'
@@ -14,8 +15,10 @@ export const metadata: Metadata = {
 }
 
 export default async function Page({ params: { id } }: PageProps) {
-  const post = await getSinglePost(id)
+  const user = await getCurrentUser()
+  if (!user.isAdmin) redirect('/admin')
 
+  const post = await getSinglePost(id)
   if (!post) notFound()
 
   return (
