@@ -24,7 +24,7 @@ export function Form() {
         />
       </FormField>
       <FormField title='Пароль'>
-        <Input type='password' name='password' placeholder='••••••••' />
+        <Input required type='password' name='password' placeholder='••••••••' />
       </FormField>
       {state ? <Error>{state}</Error> : null}
       <SubmitButton />
